@@ -23,6 +23,16 @@ function metaaim.stop()
    metaaim.runMA = false
 end
 
+function metaaim.inc()
+   metaaim.distance += 10
+   print("MetaAim distance: " .. metaaim.distance)
+end
+
+function metaaim.dec()
+   metaaim.distance -= 10
+   print("MetaAim distance: " .. metaaim.distance
+end
+
 function metaaim.mainloop()
    if metaaim.runMA == true then
       local dist = GetTargetDistance()
@@ -54,3 +64,5 @@ end
 RegisterEvent(metaaim.start, "PLAYER_ENTERED_GAME")
 RegisterEvent(metaaim.stop, "PLAYER_LOGGED_OUT")
 RegisterUserCommand('metaaim', metaaim.cmd)
+RegisterUserCommand('metaaiminc', metaaim.inc)
+RegisterUserCommand('metaaimdec', metaaim.dec)
