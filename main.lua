@@ -24,12 +24,12 @@ function metaaim.stop()
 end
 
 function metaaim.inc()
-   metaaim.distance += 10
+   metaaim.distance = metaaim.distance + 10
    print("MetaAim distance: " .. metaaim.distance)
 end
 
 function metaaim.dec()
-   metaaim.distance -= 10
+   metaaim.distance = metaaim.distance - 10
    print("MetaAim distance: " .. metaaim.distance
 end
 
