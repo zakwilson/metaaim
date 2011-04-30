@@ -24,6 +24,7 @@ weapons = {
    ["Plasma Devastator"] = 120,
    ["Plasma Annihilator"] = 140,
    ["Gatling Turret"] = 200,
+   ["Hive Queen Gatling Cannon"] = 200,
    ["Rail Gun"] = 0,
    ["Rail Gun MkII"] = 0,
    ["Rail Gun MkIII"] = 0,
