@@ -40,11 +40,15 @@ function metaaim.get_primary_weapon()
    return weapon_name
 end
 
+function metaaim.print_distance()
+   print("\1279900ffMetaAim distance: " .. metaaim.distance)
+end
+
 function metaaim.autoset()
    local weapon = metaaim.get_primary_weapon()
    local distance = weapons[weapon] or metaaim.default_distance
    metaaim.distance = distance
-   print("MetaAim distance: " .. metaaim.distance)
+   metaaim.print_distance()
 end
 
 function metaaim.start()
@@ -58,12 +62,12 @@ end
 
 function metaaim.inc()
    metaaim.distance = metaaim.distance + 10
-   print("MetaAim distance: " .. metaaim.distance)
+   metaaim.print_distance()
 end
 
 function metaaim.dec()
    metaaim.distance = metaaim.distance - 10
-   print("MetaAim distance: " .. metaaim.distance)
+   metaaim.print_distance()
 end
 
 function metaaim.mainloop()
