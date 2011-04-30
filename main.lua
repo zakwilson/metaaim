@@ -6,13 +6,46 @@ metaaim.delay = 20
 -- on by default
 metaaim.runMA = true
 
-metaaim.distance = 80
+metaaim.default_distance = 80
+
+metaaim.distance = metaaim.default_distance
 
 metaaim.timer = Timer()
 
 -- init to false - because I usually leave it off
 metaaim.aastatus = false
 gkinterface.GKProcessCommand("set autoaim 0")
+
+weapons = {
+   ["Gauss Cannon"] = 120,
+   ["Gauss Cannon MkII"] = 120,
+   ["Gauss Cannon MkIII"] = 120,
+   ["Plasma Eliminator"] = 120,
+   ["Plasma Devastator"] = 120,
+   ["Plasma Annihilator"] = 140,
+   ["Gatling Turret"] = 200,
+   ["Rail Gun"] = 0,
+   ["Rail Gun MkII"] = 0,
+   ["Rail Gun MkIII"] = 0,
+   ["Rail Gun Advanced"] = 0
+}
+
+function metaaim.get_primary_weapon()
+   -- This seems to be broken, as it gives the same result for every group ID.
+   -- Here, we don't care because it happens to give the result for the first
+   -- trigger, which is what we want.
+   local port = next(GetActiveShipWeaponGroup(0))
+   local weapon_id = GetActiveShipItemIDAtPort(port)
+   local weapon_name = GetInventoryItemName(weapon_id)
+   return weapon_name
+end
+
+function metaaim.autoset()
+   local weapon = metaaim.get_primary_weapon()
+   local distance = weapons[weapon] or metaaim.default_distance
+   metaaim.distance = distance
+   print("MetaAim distance: " .. metaaim.distance)
+end
 
 function metaaim.start()
    metaaim.runMA = true
@@ -30,7 +63,7 @@ end
 
 function metaaim.dec()
    metaaim.distance = metaaim.distance - 10
-   print("MetaAim distance: " .. metaaim.distance
+   print("MetaAim distance: " .. metaaim.distance)
 end
 
 function metaaim.mainloop()
@@ -63,6 +96,7 @@ end
 
 RegisterEvent(metaaim.start, "PLAYER_ENTERED_GAME")
 RegisterEvent(metaaim.stop, "PLAYER_LOGGED_OUT")
+RegisterEvent(metaaim.autoset, "LEAVING_STATION")
 RegisterUserCommand('metaaim', metaaim.cmd)
 RegisterUserCommand('metaaiminc', metaaim.inc)
 RegisterUserCommand('metaaimdec', metaaim.dec)
