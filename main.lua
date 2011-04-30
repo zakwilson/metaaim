@@ -24,6 +24,7 @@ weapons = {
    ["Plasma Devastator"] = 120,
    ["Plasma Annihilator"] = 140,
    ["Gatling Turret"] = 200,
+   ["Hive Queen Gatling Cannon"] = 200,
    ["Rail Gun"] = 0,
    ["Rail Gun MkII"] = 0,
    ["Rail Gun MkIII"] = 0,
@@ -60,6 +61,14 @@ function metaaim.stop()
    metaaim.runMA = false
 end
 
+function metaaim.toggle()
+   if (metaaim.runMA) then
+       metaaim.stop()
+   else
+       metaaim.start()
+   end
+end
+
 function metaaim.inc()
    metaaim.distance = metaaim.distance + 10
    metaaim.print_distance()
@@ -87,12 +96,13 @@ end
 function metaaim.cmd(_, args)
    local arg = string.lower(args[1])
    if not args then
-      print("/metaaim on, /metaaim off, /metaaim (distance)")
+      print("/metaaim on, /metaaim off, /metaaim toggle, /metaaim (distance)")
    elseif arg == 'on' then
-      metaaim.runMA = true
       metaaim.start()
    elseif arg == 'off' then
-      metaaim.runMA = false
+      metaaim.stop()
+   elseif arg == 'toggle' then
+      metaaim.toggle();
    else
       metaaim.distance = tonumber(arg)
    end
